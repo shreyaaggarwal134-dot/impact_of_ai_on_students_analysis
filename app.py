@@ -125,5 +125,22 @@ else:
         burnout = (df['Burnout_Risk_Level'].value_counts().reset_index())
         fig = px.bar(burnout,x='Burnout_Risk_Level',y='count',color='Burnout_Risk_Level',color_discrete_sequence=px.colors.qualitative.Pastel,title='Distribution of Burnout Risk Levels')
         st.plotly_chart(fig, use_container_width=True)
-    
+
+    if "Paid_Subscription" in df.columns:
+        fig = px.pie(df,names='Paid_Subscription',title='Paid Subscription Distribution',color_discrete_sequence=px.colors.qualitative.Pastel)
+        st.plotly_chart(fig, use_container_width=True)
+
+    if "Burnout_Risk_Level" in df.columns and "Weekly_GenAI_Hours" in df.columns:
+        fig = px.violin(df,x='Burnout_Risk_Level',y='Weekly_GenAI_Hours',color='Burnout_Risk_Level',color_discrete_sequence=px.colors.qualitative.Pastel2,title='Burnout Risk Across AI Usage Levels')
+        st.plotly_chart(fig, use_container_width=True)
+
+    if "Perceived_AI_Dependency" in df.columns and "Anxiety_Level_During_Exams" in df.columns:
+        fig = px.scatter(df,x='Perceived_AI_Dependency',y='Anxiety_Level_During_Exams',color='Burnout_Risk_Level',color_discrete_sequence=px.colors.qualitative.Pastel,title='AI Dependency vs Anxiety')
+        st.plotly_chart(fig, use_container_width=True)
+
+    if "Year_of_Study" in df.columns:
+        fig = px.histogram(data_frame=df,x="Year_of_Study",color="Major_Category",barmode="group",title="Major & Year-wise Trends",color_discrete_sequence=px.colors.qualitative.Pastel)
+        fig.update_layout(xaxis_title="Year of Study",yaxis_title="Number of Students",template="plotly_white",title_x=0.5)
+        st.plotly_chart(fig, use_container_width=True)                
+                          
     st.info("Continue adding the remaining visualizations from the notebook in this section.")
